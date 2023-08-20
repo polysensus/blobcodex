@@ -1,0 +1,32 @@
+{
+  "name": "@polysensus/blobcodex",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "json format for storing indexed and encrpted blobs of data",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "npx mocha './**/*.mocha.js'",
+    "lint": "prettier --ignore-path .gitignore --check . && eslint --ignore-path .gitignore .",
+    "format": "prettier --ignore-path .gitignore --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polysensus/blobcodex.git"
+  },
+  "author": "robin@polysensus.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/polysensus/blobcodex/issues"
+  },
+  "homepage": "https://github.com/polysensus/blobcodex#readme",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "eslint": "^8.47.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-mocha": "^10.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "mocha": "^10.2.0",
+    "prettier": "^3.0.2"
+  }
+}
