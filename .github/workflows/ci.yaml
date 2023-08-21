@@ -1,0 +1,44 @@
+on:
+  push:
+  #  tags:
+  #    - "v[0-9]+.[0-9]+.[0-9]+"
+
+name: ci
+
+jobs:
+  test:
+    name: ci build & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          repository: polysensus/blobcodex
+          submodules: recursive
+
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.0
+          scope: "@polysensus"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: build
+        run: |
+          npm install
+          npm run lint
+          npm run build
+
+      - name: test
+        run: |
+          npm run test
+
+      - name: publish npm package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_POLYSENSUS }}
+        if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
+        run: |
+
+          npm config list
+
+          npm publish --force --access public
