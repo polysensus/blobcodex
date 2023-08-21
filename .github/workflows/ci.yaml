@@ -1,7 +1,7 @@
 on:
   push:
-  #  tags:
-  #    - "v[0-9]+.[0-9]+.[0-9]+"
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 name: ci
 
@@ -36,7 +36,7 @@ jobs:
       - name: publish npm package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_POLYSENSUS }}
-        if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
+        # if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
         run: |
 
           npm config list
