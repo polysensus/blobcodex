@@ -41,7 +41,6 @@
   },
   "homepage": "https://github.com/polysensus/blobcodex#readme",
   "release-it": {
-    "npm": false,
     "git": {
       "commitMessage": "chore: release v${version}"
     },
