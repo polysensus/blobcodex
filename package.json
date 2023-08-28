@@ -27,8 +27,8 @@
     "prepare": "rollup -c",
     "build": "rollup -c",
     "test": "npx mocha './**/*.mocha.js'",
-    "lint": "prettier --ignore-path .gitignore --check . && eslint .",
-    "format": "prettier --ignore-path .gitignore --write ."
+    "lint": "prettier --ignore-path .gitignore --ignore-path .prettierignore --check . && eslint .",
+    "format": "prettier --ignore-path .gitignore --ignore-path .prettierignore --write ."
   },
   "repository": {
     "type": "git",
