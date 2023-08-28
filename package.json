@@ -23,6 +23,7 @@
     "rollup.config.js"
   ],
   "scripts": {
+    "release": "release-it",
     "prepare": "rollup -c",
     "build": "rollup -c",
     "test": "npx mocha './**/*.mocha.js'",
@@ -39,7 +40,36 @@
     "url": "https://github.com/polysensus/blobcodex/issues"
   },
   "homepage": "https://github.com/polysensus/blobcodex#readme",
+  "release-it": {
+    "npm": false,
+    "git": {
+        "commitMessage": "chore: release v${version}"
+      },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "infile": "CHANGELOG.md",
+        "preset": {
+          "name": "conventionalcommits",
+          "types": [
+            {
+              "type": "feat",
+              "section": "Features"
+            },
+            {
+              "type": "fix",
+              "section": "Bug Fixes"
+            },
+            {}
+          ]
+        }
+      }
+    }
+  },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^7.0.0",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.2.0",
     "chai": "^4.3.7",
@@ -51,6 +81,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "mocha": "^10.2.0",
     "prettier": "^3.0.2",
+    "release-it": "^16.1.5",
     "rollup": "^3.28.0",
     "rollup-plugin-polyfill-node": "^0.12.0"
   }

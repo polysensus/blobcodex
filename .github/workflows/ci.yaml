@@ -1,7 +1,7 @@
 on:
   push:
-    # tags:
-    #   - "v[0-9]+.[0-9]+.[0-9]+"
+  #  tags:
+  #    - "v[0-9]+.[0-9]+.[0-9]+"
 
 name: ci
 
@@ -10,7 +10,7 @@ jobs:
     name: ci build & test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the repository
+      - name: Checkout the diamond-deploy repository
         uses: actions/checkout@v3
         with:
           repository: polysensus/blobcodex
@@ -19,7 +19,7 @@ jobs:
       - name: Setup node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.17.0
+          node-version: 18.15.0
           scope: "@polysensus"
           registry-url: "https://registry.npmjs.org"
 
@@ -29,16 +29,31 @@ jobs:
           npm run lint
           npm run build
 
-      - name: test
+      - name: unit tests
         run: |
           npm run test
 
       - name: publish npm package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_POLYSENSUS }}
-        # if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
+        if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
         run: |
 
           npm config list
 
-          npm publish --force --access public
+          # github has scale issues when there are a large (> 20 ) npm packages in
+          # a repo, so force for fixes seems like the right thing for now.
+          FORCE=""
+          if [[ ! $(git log -1 --pretty=%B) =~ '^release:v' ]]; then
+            export FORCE=--force
+          fi
+          npm publish $FORCE --access public
+
+      # this didn't work, despite looking like jest/junit format the reporter
+      # crashed when looking at the time property
+      # https://github.com/marketplace/actions/test-reporter
+      # - uses: actions/upload-artifact@v2
+      #   if: success() || failure() # even if previous failed
+      #   with:
+      #     name: test-results
+      #     path: chaintrap-arenastate/jest-junit.xml
