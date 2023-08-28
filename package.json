@@ -1,7 +1,7 @@
 {
   "name": "@polysensus/blobcodex",
   "type": "module",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "json format for storing indexed and encrpted blobs of data",
   "main": "dist/blobcodex.esm.js",
   "module": "dist/blobcodex.esm.js",
