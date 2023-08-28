@@ -33,21 +33,22 @@ jobs:
         run: |
           npm run test
 
-      - name: publish npm package
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_POLYSENSUS }}
-        if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
-        run: |
+      # using release-it to do this
+      #- name: publish npm package
+      #  env:
+      #    NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_POLYSENSUS }}
+      #  if: contains(github.ref, 'refs/tags/') && github.event_name == 'push'
+      #  run: |
 
-          npm config list
+      #    npm config list
 
-          # github has scale issues when there are a large (> 20 ) npm packages in
-          # a repo, so force for fixes seems like the right thing for now.
-          FORCE=""
-          if [[ ! $(git log -1 --pretty=%B) =~ '^release:v' ]]; then
-            export FORCE=--force
-          fi
-          npm publish $FORCE --access public
+      #    # github has scale issues when there are a large (> 20 ) npm packages in
+      #    # a repo, so force for fixes seems like the right thing for now.
+      #    FORCE=""
+      #    if [[ ! $(git log -1 --pretty=%B) =~ '^release:v' ]]; then
+      #      export FORCE=--force
+      #    fi
+      #    npm publish $FORCE --access public
 
       # this didn't work, despite looking like jest/junit format the reporter
       # crashed when looking at the time property
